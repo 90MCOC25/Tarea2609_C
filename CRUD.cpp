@@ -88,46 +88,28 @@ void crear(){
 	} while ( (continuar=='s') || (continuar=='S') );
 	fclose(archivo);
 	leer();
-	
+}	
 void eliminar (){
-	if(archivo!=0){
-		bool band=false;
-		int codigo;
-		
-		cout<<"Ingrese el numero de Id de estudiante a Eliminar:";
-		cin>>codigo;
-		
-		for (int i=0; i<codigo; i++){
-        if(dato == estudiante[i].id){
-            cout<<":::Datos a Eliminar:::"<<endl;
-            cout << "========================" << endl;
-            cout<<"codigo: "<<estudiante[i].id<<endl;
-            cout<<"Nombres: "<<estudiante[i].nombres<<endl;
-            cout<<"Apellidos: "<<estudiante[i].apellidos<<endl;
-            cout<<"Telefono: "<<estudiante[i].telefono<<endl;
-            cout << "========================" << endl;
-            cout << "\nEstudiante eliminado correctamente\n" << endl;
-            system ("pause");
-
-            band=true;
-
-            Codigo[i].id = 0;
-            Nombres[i].nombre[0]='\0';
-            *Apellidos[i].apellido=0;
-            *Telefono[i].telefono=0;
-           
-            archivo--;
-        }
-    }
-    if(band==false){
-        cout<<"\nEl estudiante ingresado no existe\n"<<endl;
-        system("pause");
-    }
-}
-else{
-  cout<<"\nNo hay estudiantes registrados\n"<<endl;
-  system ("pause");
-}
+	
+	FILE* archivo = fopen(nombre_archivo,"r+b");
+	int id;
+	Estudiante estudiante;
+	string nombre,apellido;
+	cout<<"Ingrese el Id del registro que desee a Eliminar:";
+	cin>>id;
+	fseek(archivo,id *sizeof(Estudiante),SEEK_SET);
+	
+	estudiante.codigo=0;
+	estudiante.nombres[50]=0;
+	estudiante.apellidos[50]=0;
+	estudiante.telefono=0;
+	
+	cout << "\nEstudiante eliminado correctamente" << endl;
+	
+	fwrite(&estudiante,sizeof(Estudiante),1,archivo);
+	fclose(archivo);
+            
+  }
 
 
 	
